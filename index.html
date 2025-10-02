@@ -4,10 +4,49 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="style.css" />
-    <title>Objects</title>
+    <title>Library</title>
   </head>
   <body>
-    <h1>Learning Objects</h1>
+    <h1>My Library</h1>
+
+    <div class="wrapper-div"></div>
+    <dialog class="modal" id="modal">
+      <h2>Add a new book to your library</h2>
+
+      <form class="form" method="dialog">
+        <label for="book-name">Name of Your Next Book</label>
+        <input type="text" name="book-name" id="book-name" required />
+        <label for="author-name">The Name of The Author</label>
+        <input type="text" name="author-name" id="author-name" required />
+        <label for="pages">Number of Pages</label>
+        <input type="number" name="pages" id="pages" required />
+        <fieldset>
+          <legend>Have you already read this book ?</legend>
+          <div class="radio">
+            <div>
+              <input type="radio" id="read" name="readInfo" value="read" />
+              <label for="read">Read</label>
+            </div>
+
+            <div>
+              <input
+                type="radio"
+                id="not-yet"
+                name="readInfo"
+                value="not-yet"
+              />
+              <label for="not-yet">Not Yet</label>
+            </div>
+          </div>
+        </fieldset>
+
+        <div>
+          <button class="btn-add">Add Book</button>
+          <button class="btn-close">Close</button>
+        </div>
+      </form>
+    </dialog>
+    <button class="btn-new">New Book</button>
     <script src="script.js"></script>
   </body>
 </html>
