@@ -6,6 +6,7 @@ const closeBtn = document.querySelector(".btn-close");
 const dialog = document.querySelector(".modal");
 const addBtn = document.querySelector(".btn-add");
 const removeBtn = document.querySelectorAll(".remove-btn");
+const checkBtn = document.querySelectorAll(".check");
 
 // the constructor
 function Book(name, author, pages, read, id) {
@@ -24,8 +25,8 @@ function addBookToLibrary(name, author, pages, read, id) {
 
 // sample books
 addBookToLibrary("The Hobbit", "J.R.R. Tolkien", 295, "Already Read");
-addBookToLibrary("1984", "George Orwell", 328, "Not Yet");
-addBookToLibrary("To Kill a Mockingbird", "Harper Lee", 281, "Already Read");
+addBookToLibrary("1984", "George Orwell", 328, "Already Read");
+addBookToLibrary("To Kill a Mockingbird", "Harper Lee", 281, "Not Yet");
 
 // display sample books
 for (const books of myLibrary) {
@@ -33,15 +34,15 @@ for (const books of myLibrary) {
   bookDiv.classList.add("book-div");
   bookDiv.setAttribute("id", books.id);
   bookDiv.innerHTML = `<h2>${books.name}</h2>
-    <h3>${books.author}</h3>
-    <p>${books.pages} pages</p>
-    <p>${books.read}</p>
-    <button class="remove-btn">Remove</button>`;
+  <h3>${books.author}</h3>
+  <p>${books.pages} pages</p> 
+  <button class="check">${books.read}</button>
+  <button class="remove-btn">Remove</button>`;
 
   wrapper.appendChild(bookDiv);
 }
 
-// event listeners
+// dialog event listeners
 newBtn.addEventListener("click", () => {
   dialog.showModal();
 });
@@ -64,10 +65,16 @@ addBtn.addEventListener("click", () => {
   bookDiv.innerHTML = `<h2>${name}</h2>
     <h3>${author}</h3>
     <p>${pages} pages</p>
-    <p>${read}</p>
+    <button class="check">${read}</button>
     <button class="remove-btn">Remove</button>`;
 
   wrapper.appendChild(bookDiv);
+
+  if (name === "" || author === "" || pages === "") {
+    alert("Please fill in all fields");
+    wrapper.removeChild(bookDiv);
+    return;
+  }
   addBookToLibrary(name, author, pages, read);
 });
 
@@ -76,5 +83,35 @@ wrapper.addEventListener("click", (e) => {
   if (e.target.classList.contains("remove-btn")) {
     const bookDiv = e.target.parentElement;
     wrapper.removeChild(bookDiv);
+    const bookId = bookDiv.getAttribute("id");
+    for (const books of myLibrary) {
+      if (books.id === bookId) {
+        const index = myLibrary.indexOf(books);
+        myLibrary.splice(index, 1);
+        console.log(myLibrary);
+        break;
+      }
+    }
+  }
+});
+
+// Check Status
+
+wrapper.addEventListener("click", (e) => {
+  if (e.target.classList.contains("check")) {
+    const bookDiv = e.target;
+    if (bookDiv.textContent === "Already Read") {
+      bookDiv.textContent = "Not Yet";
+    } else {
+      bookDiv.textContent = "Already Read";
+    }
+    const bookId = bookDiv.parentElement.getAttribute("id");
+    for (const books of myLibrary) {
+      if (books.id === bookId) {
+        books.read = bookDiv.textContent;
+        console.log(myLibrary);
+        break;
+      }
+    }
   }
 });

@@ -12,6 +12,7 @@ button {
   border-radius: 6px;
   border: none;
   cursor: pointer;
+  box-shadow: 0 0 0.5rem rgb(170, 170, 170);
 }
 
 .btn-new {
@@ -37,4 +38,8 @@ button {
 fieldset {
   width: 30ch;
   margin: 1rem auto;
+}
+
+input:valid {
+  border: 1px solid lightgreen;
 }

@@ -15,11 +15,30 @@
 
       <form class="form" method="dialog">
         <label for="book-name">Name of Your Next Book</label>
-        <input type="text" name="book-name" id="book-name" required />
+        <input
+          type="text"
+          name="book-name"
+          id="book-name"
+          placeholder="The Lord Of the Rings"
+          required
+        />
         <label for="author-name">The Name of The Author</label>
-        <input type="text" name="author-name" id="author-name" required />
+        <input
+          type="text"
+          name="author-name"
+          id="author-name"
+          placeholder="Tolkien"
+          required
+        />
         <label for="pages">Number of Pages</label>
-        <input type="number" name="pages" id="pages" required />
+        <input
+          type="number"
+          name="pages"
+          id="pages"
+          min="1"
+          pattern="^[1-9]\d*$"
+          required
+        />
         <fieldset>
           <legend>Have you already read this book ?</legend>
           <div class="radio">
