@@ -39,6 +39,12 @@ for (const books of myLibrary) {
   <button class="check">${books.read}</button>
   <button class="remove-btn">Remove</button>`;
 
+  if (`${books.read}` === "Already Read") {
+    bookDiv.querySelector(".check").style.backgroundColor = "lightgreen";
+  } else {
+    bookDiv.querySelector(".check").style.backgroundColor = "lightcoral";
+  }
+
   wrapper.appendChild(bookDiv);
 }
 
@@ -59,10 +65,13 @@ addBtn.addEventListener("click", () => {
   const read = document.getElementById("read").checked
     ? "Already Read"
     : "Not Yet";
+  const id = self.crypto.randomUUID();
 
   const bookDiv = document.createElement("div");
   bookDiv.classList.add("book-div");
-  bookDiv.innerHTML = `<h2>${name}</h2>
+  bookDiv.setAttribute("id", id);
+  bookDiv.innerHTML = `
+    <h2>${name}</h2>
     <h3>${author}</h3>
     <p>${pages} pages</p>
     <button class="check">${read}</button>
@@ -75,7 +84,14 @@ addBtn.addEventListener("click", () => {
     wrapper.removeChild(bookDiv);
     return;
   }
-  addBookToLibrary(name, author, pages, read);
+  addBookToLibrary(name, author, pages, read, id);
+
+  if (read === "Already Read") {
+    bookDiv.querySelector(".check").style.backgroundColor = "lightgreen";
+  } else {
+    bookDiv.querySelector(".check").style.backgroundColor = "lightcoral";
+  }
+  console.log(myLibrary);
 });
 
 // remove book
@@ -102,8 +118,10 @@ wrapper.addEventListener("click", (e) => {
     const bookDiv = e.target;
     if (bookDiv.textContent === "Already Read") {
       bookDiv.textContent = "Not Yet";
+      bookDiv.style.backgroundColor = "lightcoral";
     } else {
       bookDiv.textContent = "Already Read";
+      bookDiv.style.backgroundColor = "lightgreen";
     }
     const bookId = bookDiv.parentElement.getAttribute("id");
     for (const books of myLibrary) {
